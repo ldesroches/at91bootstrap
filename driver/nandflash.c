@@ -566,14 +566,15 @@ static int nand_info_init(struct nand_info *nand, struct nand_chip *chip)
 	if (choose_pmecc_info(nand, chip))
 		return -1;
 #endif
+	nand_oob_layout.badblockpos = 0;
 	/* the layout of the spare area */
-	config_nand_ooblayout(&nand_oob_layout, nand, chip);
-	nand->ecclayout = &nand_oob_layout;
-#if 1
+	//config_nand_ooblayout(&nand_oob_layout, nand, chip);
+	//nand->ecclayout = &nand_oob_layout;
+#if 0
 	/* data bus width (8/16 bits) */
 	nand->buswidth = chip->buswidth;
 	if (nand->buswidth) {
-		//nand->ecclayout->badblockpos *= 2;
+		nand->ecclayout->badblockpos *= 2;
 		nand->command = nand_command16;
 		nand->address = nand_address16;
 	} else {
