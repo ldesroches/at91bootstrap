@@ -184,7 +184,7 @@ static void config_nand_ooblayout(struct nand_ooblayout *layout,
 	unsigned int i;
 	unsigned int oobsize = chip->oobsize;
 	layout->badblockpos = 0;
-
+#if 0
 #ifdef CONFIG_USE_PMECC
 	layout->eccbytes = div(chip->pagesize, nand->ecc_sector_size)
 		* get_pmecc_bytes(nand->ecc_sector_size, nand->ecc_err_bits);
@@ -211,6 +211,7 @@ static void config_nand_ooblayout(struct nand_ooblayout *layout,
 #endif
 	for (i = 0; i < layout->eccbytes; i++)
 		layout->eccpos[i] = oobsize - layout->eccbytes + i;
+#endif
 }
 #endif /* #ifdef CONFIG_NANDFLASH_SMALL_BLOCKS */
 
@@ -563,6 +564,7 @@ static int nand_info_init(struct nand_info *nand, struct nand_chip *chip)
 		return -1;
 #endif
 	/* the layout of the spare area */
+#if 0
 	config_nand_ooblayout(&nand_oob_layout, nand, chip);
 	nand->ecclayout = &nand_oob_layout;
 	/* data bus width (8/16 bits) */
@@ -575,7 +577,7 @@ static int nand_info_init(struct nand_info *nand, struct nand_chip *chip)
 		nand->command = nand_command;
 		nand->address = nand_address;
 	}
-
+#endif
 	return 0;
 }
 
@@ -1040,11 +1042,14 @@ int load_nandflash(struct image_info *image)
 	struct nand_info nand;
 	int ret;
 
+	dbg_info("##### load_nandflash #####\n");
+
 	nandflash_hw_init();
 
 	if (nandflash_get_type(&nand))
 		return -1;
 
+#if 0
 #ifdef CONFIG_NANDFLASH_RECOVERY
 	if (nandflash_recovery(&nand) == 0)
 		return -2;
@@ -1091,6 +1096,6 @@ int load_nandflash(struct image_info *image)
 	if (ret)
 		return ret;
 #endif
-
+#endif
 	return 0;
  }

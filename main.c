@@ -36,6 +36,7 @@
 #include "backup.h"
 #include "secure.h"
 #include "sfr_aicredir.h"
+#include "debug.h"
 
 #ifdef CONFIG_HW_DISPLAY_BANNER
 static void display_banner (void)
@@ -96,12 +97,14 @@ int main(void)
 	act8945a_suspend_charger();
 #endif
 
+	dbg_info("!!! init load_image !!!\n");
 	init_load_image(&image);
 
 #if defined(CONFIG_SECURE)
 	image.dest -= sizeof(at91_secure_header_t);
 #endif
 
+	dbg_info("!!! execute load_image !!!\n");
 	ret = (*load_image)(&image);
 
 #if defined(CONFIG_SECURE)
