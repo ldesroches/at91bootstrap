@@ -76,6 +76,7 @@ static struct nand_chip nand_ids[] = {
 
 /* ooblayout */
 static struct nand_ooblayout nand_oob_layout;
+static struct nand_ooblayout nand_oob_layout2;
 
 static struct nand_chip nand_chip_default;
 
@@ -183,7 +184,8 @@ static void config_nand_ooblayout(struct nand_ooblayout *layout,
 {
 	unsigned int i;
 	unsigned int oobsize = chip->oobsize;
-	layout->badblockpos = 0;
+	//layout->badblockpos = 0;
+	//nand_oob_layout2.badblockpos = 0;
 	//dbg_info(" config_nand_ooblayout layout=%x\n", layout);
 #if 0
 #ifdef CONFIG_USE_PMECC
@@ -566,12 +568,12 @@ static int nand_info_init(struct nand_info *nand, struct nand_chip *chip)
 #endif
 	/* the layout of the spare area */
 	config_nand_ooblayout(&nand_oob_layout, nand, chip);
-#if 0
 	nand->ecclayout = &nand_oob_layout;
+#if 1
 	/* data bus width (8/16 bits) */
 	nand->buswidth = chip->buswidth;
 	if (nand->buswidth) {
-		nand->ecclayout->badblockpos *= 2;
+		//nand->ecclayout->badblockpos *= 2;
 		nand->command = nand_command16;
 		nand->address = nand_address16;
 	} else {
