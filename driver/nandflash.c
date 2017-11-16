@@ -184,6 +184,7 @@ static void config_nand_ooblayout(struct nand_ooblayout *layout,
 	unsigned int i;
 	unsigned int oobsize = chip->oobsize;
 	layout->badblockpos = 0;
+	//dbg_info(" config_nand_ooblayout layout=%x\n", layout);
 #if 0
 #ifdef CONFIG_USE_PMECC
 	layout->eccbytes = div(chip->pagesize, nand->ecc_sector_size)
@@ -564,8 +565,8 @@ static int nand_info_init(struct nand_info *nand, struct nand_chip *chip)
 		return -1;
 #endif
 	/* the layout of the spare area */
-#if 0
 	config_nand_ooblayout(&nand_oob_layout, nand, chip);
+#if 0
 	nand->ecclayout = &nand_oob_layout;
 	/* data bus width (8/16 bits) */
 	nand->buswidth = chip->buswidth;
