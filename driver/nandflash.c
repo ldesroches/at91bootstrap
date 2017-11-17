@@ -1039,6 +1039,12 @@ int load_nandflash(struct image_info *image)
 {
 	struct nand_info nand;
 	int ret;
+	
+	nand_oob_layout.badblockpos = 0;
+
+	dbg_info("### load_nandflash ###\n");
+
+	return 0;
 
 	nandflash_hw_init();
 
