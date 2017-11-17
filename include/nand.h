@@ -37,7 +37,7 @@
 struct nand_ooblayout {
 	unsigned short	badblockpos;
 	unsigned short	eccbytes;
-	unsigned short	eccpos[2];
+	unsigned short	eccpos[512];
 };
 
 struct nand_chip {
